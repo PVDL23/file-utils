@@ -12,7 +12,7 @@
 uv init
 
 # Add file-utils as a dependency
-uv add git+https://github.com/yourusername/file-utils.git
+uv add git+https://github.com/PVDL23/file-utils.git
 
 # Or if you have the package locally
 uv add /path/to/file-utils
@@ -25,7 +25,7 @@ uv add /path/to/file-utils
 pip install /path/to/file-utils
 
 # Or clone and install
-git clone https://github.com/yourusername/file-utils.git
+git clone https://github.com/PVDL23/file-utils.git
 cd file-utils
 pip install .
 ```
@@ -34,7 +34,7 @@ pip install .
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/file-utils.git
+git clone https://github.com/PVDL23/file-utils.git
 cd file-utils
 
 # Create virtual environment with uv

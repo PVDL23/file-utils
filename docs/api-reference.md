@@ -4,10 +4,10 @@ Complete API documentation for file-utils package.
 
 ## Modules
 
-- [`file_utils`](https://github.com/yourusername/file-utils/blob/master/src/file_utils/__init__.py) - Main package module
-- [`file_utils.io`](https://github.com/yourusername/file-utils/blob/master/src/file_utils/io.py) - Input/Output operations
-- [`file_utils.stream`](https://github.com/yourusername/file-utils/blob/master/src/file_utils/stream.py) - S3 streaming operations
-- [`file_utils.convert`](https://github.com/yourusername/file-utils/blob/master/src/file_utils/convert.py) - Format conversion
+- [`file_utils`](https://github.com/PVDL23/file-utils/blob/master/src/file_utils/__init__.py) - Main package module
+- [`file_utils.io`](https://github.com/PVDL23/file-utils/blob/master/src/file_utils/io.py) - Input/Output operations
+- [`file_utils.stream`](https://github.com/PVDL23/file-utils/blob/master/src/file_utils/stream.py) - S3 streaming operations
+- [`file_utils.convert`](https://github.com/PVDL23/file-utils/blob/master/src/file_utils/convert.py) - Format conversion
 
 ---
 

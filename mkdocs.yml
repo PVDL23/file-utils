@@ -1,0 +1,47 @@
+site_name: file-utils
+site_description: Streaming file utilities for CSV, TSV, JSONL, XML, Avro, Arrow IPC, and Parquet
+site_author: PVDL23
+
+repo_name: PVDL23/file-utils
+repo_url: https://github.com/PVDL23/file-utils
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quick Start: quickstart.md
+  - File Formats: file-formats.md
+  - API Reference: api-reference.md
+  - Examples: examples.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
