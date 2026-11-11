@@ -5,7 +5,7 @@ import pytest
 from file_utils.stream import (
     s3_client,
     upload,
-    download,
+    s3_download,
     list_keys,
     object_size,
     delete,
@@ -45,14 +45,14 @@ class TestUpload:
 
 
 class TestDownload:
-    """Tests for download function."""
+    """Tests for s3_download function."""
     
     def test_non_s3_src_raises(self, tmp_path):
         """Test that non-S3 source raises ValueError."""
         dst = tmp_path / "test.txt"
         
         with pytest.raises(ValueError, match="s3_url must start with s3://"):
-            download("not-s3://bucket/key", str(dst))
+            s3_download("not-s3://bucket/key", str(dst))
 
 
 class TestListKeys:

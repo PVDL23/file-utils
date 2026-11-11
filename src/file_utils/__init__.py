@@ -10,6 +10,7 @@ from file_utils.io import (
     open_any,
     exists,
     file_size,
+    download,
 )
 from file_utils.convert import (
     detect_format,
@@ -34,7 +35,7 @@ from file_utils.convert import (
 from file_utils.stream import (
     s3_client,
     upload,
-    download,
+    s3_download,
     list_keys,
     object_size,
     delete,
@@ -48,6 +49,7 @@ __all__ = [
     "open_any",
     "exists",
     "file_size",
+    "download",
     # convert
     "detect_format",
     "convert",
@@ -70,7 +72,7 @@ __all__ = [
     # stream
     "s3_client",
     "upload",
-    "download",
+    "s3_download",
     "list_keys",
     "object_size",
     "delete",

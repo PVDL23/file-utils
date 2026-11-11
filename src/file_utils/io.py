@@ -1,9 +1,10 @@
-"""Uniform local and S3 file access using fsspec."""
+"""Uniform local, S3, and HTTP file access using fsspec."""
 
 from __future__ import annotations
 
 from pathlib import Path
 import fsspec
+import shutil
 
 
 def is_s3(path: str | Path) -> bool:
@@ -99,11 +100,62 @@ def exists(path: str | Path) -> bool:
 
 
 def file_size(path: str | Path) -> int:
-    """Get the size in bytes of a path (local or S3)."""
+    """Get the size in bytes of a path (local, S3, or HTTP)."""
     path_str = str(path)
-    if is_s3(path_str):
-        fs = fsspec.filesystem("s3", anon=False)
-        return fs.size(path_str)
+    fs, path_normalized = _get_filesystem(path_str)
+    return fs.size(path_normalized)
+
+
+def _get_filesystem(path: str) -> tuple[fsspec.Filesystem, str]:
+    """
+    Get the appropriate fsspec filesystem for a path.
+    
+    Args:
+        path: The path (local, S3, HTTP, or HTTPS)
+        
+    Returns:
+        A tuple of (filesystem, normalized_path)
+    """
+    if is_s3(path):
+        return fsspec.filesystem("s3", anon=False), path
+    elif path.startswith("http://") or path.startswith("https://"):
+        return fsspec.filesystem("http"), path
     else:
-        fs = fsspec.filesystem("file")
-        return fs.size(path_str)
+        return fsspec.filesystem("file"), str(Path(path).resolve())
+
+
+def download(src: str | Path, dst: str | Path, **kwargs) -> str | Path:
+    """
+    Download a file from any source (local, S3, HTTP, HTTPS) to a local destination.
+    
+    Args:
+        src: Source path or URL (local, s3://, http://, https://)
+        dst: Destination local path
+        **kwargs: Additional arguments passed to fsspec.get()
+        
+    Returns:
+        The destination path
+        
+    Raises:
+        ValueError: If source is not a valid URL or path
+    """
+    src_str = str(src)
+    dst_str = str(dst)
+    
+    # Check if source is HTTP/HTTPS
+    if src_str.startswith("http://") or src_str.startswith("https://"):
+        # Use fsspec to copy from HTTP to local
+        fs = fsspec.filesystem("http")
+        # Ensure destination parent directory exists
+        Path(dst_str).parent.mkdir(parents=True, exist_ok=True)
+        fs.get(src_str, dst_str, **kwargs)
+    elif is_s3(src_str):
+        # Use existing S3 download logic
+        from file_utils.stream import s3_download
+        s3_download(src_str, dst_str, **kwargs)
+    else:
+        # Local to local - use shutil.copy
+        import shutil
+        shutil.copy2(src_str, dst_str)
+    
+    return dst

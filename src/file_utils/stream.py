@@ -127,11 +127,11 @@ def upload(src: str, s3_url: str, client: boto3.client | None = None, *,
     return s3_url
 
 
-def download(s3_url: str, dst: str, client: boto3.client | None = None, *,
+def s3_download(s3_url: str, dst: str, client: boto3.client | None = None, *,
              threshold_mb: int = 64, chunk_mb: int = 64,
              max_concurrency: int = 8) -> str:
     """
-    Download a file from S3.
+    Download a file from S3 (legacy function, use download() for general use).
     
     Args:
         s3_url: Source S3 URL

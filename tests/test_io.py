@@ -3,7 +3,7 @@
 import pytest
 from pathlib import Path
 
-from file_utils.io import is_s3, split_s3, open_any, exists, file_size
+from file_utils.io import is_s3, split_s3, open_any, exists, file_size, download
 
 
 class TestIsS3:
@@ -102,3 +102,27 @@ class TestFileSize:
         test_file = tmp_path / "empty.txt"
         test_file.write_text("", encoding="utf-8")
         assert file_size(test_file) == 0
+
+
+class TestDownload:
+    """Tests for download function."""
+    
+    def test_local_to_local(self, tmp_path):
+        src = tmp_path / "source.txt"
+        src.write_text("Hello, World!")
+        
+        dst = tmp_path / "dest.txt"
+        download(str(src), str(dst))
+        
+        assert dst.exists()
+        assert dst.read_text() == "Hello, World!"
+    
+    def test_path_objects(self, tmp_path):
+        src = tmp_path / "source.txt"
+        src.write_text("content")
+        
+        dst = tmp_path / "dest.txt"
+        download(src, dst)
+        
+        assert dst.exists()
+        assert dst.read_text() == "content"
