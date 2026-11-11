@@ -1,0 +1,28 @@
+[project]
+name = "file-utils"
+version = "0.1.0"
+description = "Streaming file utilities: download, upload, and convert CSV, TSV, JSONL, XML, Avro, Arrow, and Parquet (local or S3)."
+readme = "README.md"
+authors = [{ name = "Data Engineer" }]
+requires-python = ">=3.10"
+dependencies = [
+    "pyarrow>=15",
+    "fastavro>=1.9",
+    "fsspec>=2024.6.0",
+    "s3fs>=2024.6.0",
+    "boto3>=1.34",
+    "lxml>=4.9",
+]
+
+[project.scripts]
+file-utils = "file_utils.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/file_utils"]
