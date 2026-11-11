@@ -18,7 +18,11 @@ dependencies = [
 file-utils = "file_utils.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=8"]
+dev = [
+    "pytest>=8",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.7",
+]
 
 [build-system]
 requires = ["hatchling"]
